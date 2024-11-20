@@ -179,12 +179,11 @@
     margin-top: 3rem;
   }
 }
-@layer nav {
+@layer header {
   body {
     background-color: black;
   }
   header {
-    padding: 1rem 2rem;
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -200,14 +199,13 @@
     text-decoration: none;
     color: var(--white);
   }
-
   header a:hover {
     color: var(--green);
   }
   header svg {
     width: 30px;
     fill: var(--white);
-    margin-top: -0.1rem;
+    margin-top: 0.5rem;
   }
   header a:hover svg {
     fill: var(--green);
@@ -217,7 +215,6 @@
     font-weight: 600;
     margin: 0;
     padding: 0;
-
   }
   nav ul {
     margin: 0;
@@ -228,7 +225,6 @@
     justify-content: center;
     align-items: center;
     gap: 2rem;
-    border: 2px solid red;
   }
   nav .button {
     padding: 0.6rem 0.4rem 0.4rem 0.4rem;
@@ -237,5 +233,96 @@
   nav .button:hover {
     color: var(--black);
   }
-
+  @media (max-width: 830px) {
+    header {
+      justify-content: center;
+    }
+    header h1 {
+      flex-basis: 100%;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+  }
+  @media (max-width: 640px) {
+    header {
+      justify-content: space-between;
+    }
+    header h1 {
+      flex-basis: auto;
+    }
+    /* hamburger button is the button HTML element */
+    header button {
+      display: block;
+      font-size: 3rem;
+      line-height: 1;
+      border: 0;
+      background: transparent;
+      color: var(--white);
+    }
+    header button:hover {
+      color: var(--green);
+    }
+    header button::after {
+      content: "\2630";
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      right: 200%;
+      width: 100vw;
+      height: 100vh;
+      opacity: 0;
+      background: #fff;
+      padding-top: 20%;
+      transition: right 0s 0.5s, opacity 0.5s;
+    }
+       /* trigger for animation - pulls down nav box */
+    button:focus + nav,
+    button:focus-within + nav {
+      right: 0;
+      opacity: 1;
+      transition: right 0s, opacity 0.5s;
+    }
+    nav ul {
+      display: block;
+      text-align: center;
+      position: relative;
+      top: -50vh;
+      transition: top 0.5s;
+    }
+    /* trigger for animation - makes the links in motion */
+    button:focus + nav ul,
+    button:focus-within + nav ul {
+      top: 0;
+    }
+    /* styling for links and SVGs in the mobile menu */
+    nav a:any-link:not(.button) {
+      display: block;
+      padding: 1.5rem;
+      color: var(--green);
+    }
+    nav a svg {
+      fill: var(--green);
+    }
+    nav a:hover,
+    nav a svg:hover {
+      color: var(--tan);
+      fill: var(--tan);
+    }
+    /* keep spacing even between link items */
+    nav .button {
+      margin-top: 1.5rem;
+    }
+   /* sets up the close icon - clicking anywhere not on a link will close the menu */
+    nav ul::after {
+      content: "\2716";
+      color: var(--green);
+      display: block;
+      position: absolute;
+      top: 0.125rem;
+      right: 0.5rem;
+      font-size: 3rem;
+      line-height: 1;
+    }
+  }
 }
